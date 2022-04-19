@@ -1,0 +1,13 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.team1.betterhip.dao.CartDao">
+    
+    	<select id="CartListDao" resultType="String">
+    		select cake_name from cake where cake_id = (#{param1})
+    	</select>
+    	
+    
+    
+    </mapper>
