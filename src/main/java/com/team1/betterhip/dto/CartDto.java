@@ -16,7 +16,10 @@ public class CartDto {
 	String purchase_text;
 	String cake_name;
 	String purchase_pickup_date;
-	Blob cake_img;
+	Blob cake_blob_img;
+	Blob purchase_img;        // cake에 넣을 custom image
+	String cake_img;          // cake_blob_img를 base64로 변경후 저장할 변수
+	String cake_custom_img;   // custom img가 있을 경우 base64로 변경후 저장할 변수
 	
 	
 	
@@ -24,11 +27,15 @@ public class CartDto {
 	public CartDto() {
 		
 	}
-	
-	
+
+
+
+
+    
 	public CartDto(int purchase_id, int purchase_quantity, int purchase_price, int purchase_cake_id,
 			String customize_size, String customize_taste, String customize_cream_type, String customzie_cream_color,
-			String purchase_text, String cake_name, String purchase_pickup_date, Blob cake_img) {
+			String purchase_text, String cake_name, String purchase_pickup_date, Blob cake_blob_img, Blob purchase_img,
+			String cake_img, String cake_custom_img) {
 		super();
 		this.purchase_id = purchase_id;
 		this.purchase_quantity = purchase_quantity;
@@ -41,12 +48,18 @@ public class CartDto {
 		this.purchase_text = purchase_text;
 		this.cake_name = cake_name;
 		this.purchase_pickup_date = purchase_pickup_date;
+		this.cake_blob_img = cake_blob_img;
+		this.purchase_img = purchase_img;
 		this.cake_img = cake_img;
+		this.cake_custom_img = cake_custom_img;
 	}
 
 
 
+
+
 	// Method
+
 	public int getPurchase_id() {
 		return purchase_id;
 	}
@@ -179,17 +192,51 @@ public class CartDto {
 
 
 
-	public Blob getCake_img() {
+	public Blob getCake_blob_img() {
+		return cake_blob_img;
+	}
+
+
+
+	public void setCake_blob_img(Blob cake_blob_img) {
+		this.cake_blob_img = cake_blob_img;
+	}
+
+
+
+	public String getCake_img() {
 		return cake_img;
 	}
 
 
 
-	public void setCake_img(Blob cake_img) {
+	public void setCake_img(String cake_img) {
 		this.cake_img = cake_img;
 	}
 
-	
+
+
+	public String getCake_custom_img() {
+		return cake_custom_img;
+	}
+
+
+
+	public void setCake_custom_img(String cake_custom_img) {
+		this.cake_custom_img = cake_custom_img;
+	}
+
+
+
+	public Blob getPurchase_img() {
+		return purchase_img;
+	}
+
+
+
+	public void setPurchase_img(Blob purchase_img) {
+		this.purchase_img = purchase_img;
+	}
 	
 
 }

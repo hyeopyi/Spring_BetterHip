@@ -1,7 +1,6 @@
 package com.team1.betterhip;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ public class CartController {
 	
 	@Autowired
 	private SqlSession sqlSession;
-
 	
 	private BetterHipCommand cartList = null;
 	private BetterHipCommand cartDelete = null;
@@ -41,11 +39,17 @@ public class CartController {
 	}
 
 	
+	@RequestMapping("/list")
+	public String list(HttpServletRequest request, Model model) {
+		return "listTest";
+	}
+	
+	
 	@RequestMapping("/cartList")
 	public String cartlist(HttpServletRequest request, Model model) {			
 		model.addAttribute("request", request);	
 		cartList.excute(sqlSession, model);
-		return "cartList";
+		return "list";
 	}
 	
 	@RequestMapping("/cartDelete") 

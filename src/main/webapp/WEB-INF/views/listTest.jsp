@@ -6,12 +6,21 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+
+<%
+
+	session = request.getSession();
+	session.setAttribute("USER_ID", "test11");
+
+
+%>
+
+
 <body>
 
 
-	<form action="list">
-	
-		<input type="hidden" name="USER_ID" value="test11">
+	<form action="cartList">
+		
 		<input type="submit" value="ok">
 	
 	
