@@ -41,4 +41,6 @@
 	</beans:bean>
 	
 	<beans:bean name="cartList" class="com.team1.betterhip.command.CartListCommand"></beans:bean>	
+	<beans:bean name="cartDelete" class="com.team1.betterhip.command.CartDeleteCommand"></beans:bean>	
+	<beans:bean name="cartOrder" class="com.team1.betterhip.command.CartOrderCommand"></beans:bean>	
 </beans:beans>
