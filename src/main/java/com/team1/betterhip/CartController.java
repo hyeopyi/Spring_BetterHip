@@ -41,11 +41,17 @@ public class CartController {
 	}
 
 	
+	@RequestMapping("/list")
+	public String test(HttpServletRequest request, Model model) {		
+		return "listTest";
+
+	}
+	
 	@RequestMapping("/cartList")
 	public String cartlist(HttpServletRequest request, Model model) {			
 		model.addAttribute("request", request);	
 		cartList.excute(sqlSession, model);
-		return "cartList";
+		return "list";
 	}
 	
 	@RequestMapping("/cartDelete") 

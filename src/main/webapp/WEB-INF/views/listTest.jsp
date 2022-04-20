@@ -7,11 +7,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+
+	session = request.getSession();
+	session.setAttribute("USER_ID", "test11");
 
 
-	<form action="list">
+%>
+
+
+	<form action="cartList">
 	
-		<input type="hidden" name="USER_ID" value="test11">
+
 		<input type="submit" value="ok">
 	
 	
