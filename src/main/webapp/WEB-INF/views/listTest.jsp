@@ -17,25 +17,12 @@
 
 
 <body>
-<%
-
-	session = request.getSession();
-	session.setAttribute("USER_ID", "test11");
-
-<<<<<<< HEAD
-
-%>
 
 
 	<form action="cartList">
 	
+	<input type="submit" value="ok">
 
-=======
-	<form action="cartList">
-		
->>>>>>> 892107128af5bb44ff82d4ab9b89ee0505db6d0c
-		<input type="submit" value="ok">
-	
 	
 	</form>
 

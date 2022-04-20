@@ -2,6 +2,8 @@ package com.team1.betterhip.dto;
 
 import java.sql.Blob;
 
+
+
 public class CartDto {
 	
 	// Field
@@ -12,15 +14,14 @@ public class CartDto {
 	String customize_size;
 	String customize_taste;
 	String customize_cream_type;
-	String customzie_cream_color;
+	String customize_cream_color;
 	String purchase_text;
-	String cake_name;
+	String purchase_cake_name;
 	String purchase_pickup_date;
-	Blob cake_blob_img;
-	Blob purchase_img;        // cake에 넣을 custom image
-	String cake_img;          // cake_blob_img를 base64로 변경후 저장할 변수
-	String cake_custom_img;   // custom img가 있을 경우 base64로 변경후 저장할 변수
-	
+	Blob cake_img;   
+	String cake_img_base64;
+	String custom_img_base64;
+
 	
 	
 	// Constructor	
@@ -30,12 +31,10 @@ public class CartDto {
 
 
 
-
-    
 	public CartDto(int purchase_id, int purchase_quantity, int purchase_price, int purchase_cake_id,
-			String customize_size, String customize_taste, String customize_cream_type, String customzie_cream_color,
-			String purchase_text, String cake_name, String purchase_pickup_date, Blob cake_blob_img, Blob purchase_img,
-			String cake_img, String cake_custom_img) {
+			String customize_size, String customize_taste, String customize_cream_type, String customize_cream_color,
+			String purchase_text, String purchase_cake_name, String purchase_pickup_date, Blob cake_img,
+			String cake_img_base64, String custom_img_base64) {
 		super();
 		this.purchase_id = purchase_id;
 		this.purchase_quantity = purchase_quantity;
@@ -44,21 +43,16 @@ public class CartDto {
 		this.customize_size = customize_size;
 		this.customize_taste = customize_taste;
 		this.customize_cream_type = customize_cream_type;
-		this.customzie_cream_color = customzie_cream_color;
+		this.customize_cream_color = customize_cream_color;
 		this.purchase_text = purchase_text;
-		this.cake_name = cake_name;
+		this.purchase_cake_name = purchase_cake_name;
 		this.purchase_pickup_date = purchase_pickup_date;
-		this.cake_blob_img = cake_blob_img;
-		this.purchase_img = purchase_img;
 		this.cake_img = cake_img;
-		this.cake_custom_img = cake_custom_img;
+		this.cake_img_base64 = cake_img_base64;
+		this.custom_img_base64 = custom_img_base64;
 	}
 
 
-
-
-
-	// Method
 
 	public int getPurchase_id() {
 		return purchase_id;
@@ -144,14 +138,14 @@ public class CartDto {
 
 
 
-	public String getCustomzie_cream_color() {
-		return customzie_cream_color;
+	public String getCustomize_cream_color() {
+		return customize_cream_color;
 	}
 
 
 
-	public void setCustomzie_cream_color(String customzie_cream_color) {
-		this.customzie_cream_color = customzie_cream_color;
+	public void setCustomize_cream_color(String customize_cream_color) {
+		this.customize_cream_color = customize_cream_color;
 	}
 
 
@@ -168,14 +162,14 @@ public class CartDto {
 
 
 
-	public String getCake_name() {
-		return cake_name;
+	public String getPurchase_cake_name() {
+		return purchase_cake_name;
 	}
 
 
 
-	public void setCake_name(String cake_name) {
-		this.cake_name = cake_name;
+	public void setPurchase_cake_name(String purchase_cake_name) {
+		this.purchase_cake_name = purchase_cake_name;
 	}
 
 
@@ -192,51 +186,40 @@ public class CartDto {
 
 
 
-	public Blob getCake_blob_img() {
-		return cake_blob_img;
-	}
-
-
-
-	public void setCake_blob_img(Blob cake_blob_img) {
-		this.cake_blob_img = cake_blob_img;
-	}
-
-
-
-	public String getCake_img() {
+	public Blob getCake_img() {
 		return cake_img;
 	}
 
 
 
-	public void setCake_img(String cake_img) {
+	public void setCake_img(Blob cake_img) {
 		this.cake_img = cake_img;
 	}
 
 
 
-	public String getCake_custom_img() {
-		return cake_custom_img;
+	public String getCake_img_base64() {
+		return cake_img_base64;
 	}
 
 
 
-	public void setCake_custom_img(String cake_custom_img) {
-		this.cake_custom_img = cake_custom_img;
+	public void setCake_img_base64(String cake_img_base64) {
+		this.cake_img_base64 = cake_img_base64;
 	}
 
 
 
-	public Blob getPurchase_img() {
-		return purchase_img;
+	public String getCustom_img_base64() {
+		return custom_img_base64;
 	}
 
 
 
-	public void setPurchase_img(Blob purchase_img) {
-		this.purchase_img = purchase_img;
+	public void setCustom_img_base64(String custom_img_base64) {
+		this.custom_img_base64 = custom_img_base64;
 	}
-	
+
+
 
 }

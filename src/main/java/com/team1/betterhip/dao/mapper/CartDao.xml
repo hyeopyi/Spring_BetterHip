@@ -4,12 +4,45 @@
     
     <mapper namespace="com.team1.betterhip.dao.CartDao">
     
+
+	    
     	<select id="CartListDao" resultType="com.team1.betterhip.dto.CartDto">
-    		select p.purchase_id, p.purchase_quantity, p.purchase_price, p.purchase_cake_id, 
-    		o.customize_size, customize_taste, o.customize_cream_type, o.customize_cream_color, 
-    		p.purchase_text, c.cake_name, p.purchase_pickup_date, c.cake_img from purchase p, cake c, customize o 
-    		where p.purchase_cake_id = c.cake_id and p.purchase_customize_id = o.customize_id 
-    		and p.purchase_status = 1 and p.purchase_user_id = (#{param1})
-    	</select>    	
+    		select     
+    			   p.purchase_id as purchase_id, 
+    			   p.purchase_quantity as purchase_quantity, 
+    			   p.purchase_price as purchase_price, 
+    			   p.purchase_cake_id as purchase_cake_id, 
+    		       o.customize_size as customize_size, 
+    		       o.customize_taste as customize_taste, 
+    		       o.customize_cream_type as customize_cream_type, 
+    		       o.customize_cream_color as customize_cream_color,     		       
+    			   p.purchase_text as purchase_text, 
+    			   c.cake_name as purchase_cake_name, 
+    			   p.purchase_pickup_date as purchase_pickup_date, 
+    			   c.cake_img as cake_img 
+    			   
+    		from   purchase p, 
+    		       cake c, 
+    		       customize o  
+    		          		
+    		where  p.purchase_cake_id = c.cake_id 
+    			   and p.purchase_customize_id = o.customize_id 
+    		       and p.purchase_status = 1 
+    		       and p.purchase_user_id = (#{param1})
+    	</select>    
+    	
+    	<resultMap type="java.util.HashMap" id="imgGet">
+    		<result property="cake_img" column="cake_img" jdbcType="BLOB" javaType="byte[]"/>
+    	</resultMap>
+    	
+    	<select id="CartListImgDao" resultMap="imgGet">
+    		select c.cake_img
+    		from purchase p, cake c
+    		where p.purchase_status = 1 and p.purchase_cake_id = c.cake_id and p.purchase_user_id = (#{param1})
+    	
+    	
+    	</select>
+    	
+
     
     </mapper>

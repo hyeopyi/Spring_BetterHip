@@ -12,12 +12,14 @@
 <body>
 
 <h1>넘어옴</h1>
-						<c:forEach var="item" items="${CartList}">
+						<c:forEach var="item" items="${Img}">
 							<tr>
+					
+						 <td width="600" align="left">  <img src="data:cake_img/png;base64, ${item}" width="150" height="150"><br>
 							   
-							   <td width="200" align="center"><a href="cakeChoice.do?cake_id=${item.purchase_cake_id }">
-							   <img src="data:cake_img/png;base64, ${item.purchase_cake_img }" width="150" height="150"></a></td>
-							   <td width="600" align="left"><h3><c:out value = "${item.purchase_cake_name }"/></h3><br>		   					
+					
+							   
+							   							   					
 							</tr>   
 						 </c:forEach>
 

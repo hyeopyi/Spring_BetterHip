@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.team1.betterhip.dao.LoginDao">
+    
+
+	    
+    	<select id="kakaoLoginDao" resultType="int">
+    		select count(#{param1}) from user where user_id = #{param1}      
+    	</select>
+    	
+    	<select id="logincheckDao" resultType="com.team1.betterhip.dto.LoginDto">
+    		select 
+    				user_pw, 
+    				count(user_leavedate) 
+    		from user
+    		where user_id = #{param1}
+    		
+    	</select>
+
+    
+    </mapper>

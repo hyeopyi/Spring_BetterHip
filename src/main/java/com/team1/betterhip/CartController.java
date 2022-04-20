@@ -49,14 +49,14 @@ public class CartController {
 	@RequestMapping("/cartList")
 	public String cartlist(HttpServletRequest request, Model model) {			
 		model.addAttribute("request", request);	
-		cartList.excute(sqlSession, model);
+		cartList.excute(request, sqlSession, model);
 		return "list";
 	}
 	
 	@RequestMapping("/cartDelete") 
 	public String cartDelete(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		cartDelete.excute(sqlSession, model);
+		cartDelete.excute(request, sqlSession, model);
 		return "test";
 	}
 	
@@ -64,7 +64,7 @@ public class CartController {
 	@RequestMapping("/cartOrder")
 	public String cartOrder(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		cartOrder.excute(sqlSession, model);
+		cartOrder.excute(request, sqlSession, model);
 		return "test";
 	}
 
