@@ -1,0 +1,18 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.team1.betterhip.dao.TestDao">
+    
+    	<resultMap type="hashMap" id="imgMap">
+    		<result property="cake_img" column="cake_img" javaType="[B" jdbcType="BLOB"/>   	
+    	</resultMap>
+    
+    	<select id="blogImg" resultMap="imgMap">
+    		select cake_img from cake where cake_id = #{param1}
+    	
+    	</select>
+
+
+    
+    </mapper>

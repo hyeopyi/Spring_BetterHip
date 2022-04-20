@@ -16,7 +16,6 @@ public class LoginCommand implements BetterHipCommand {
 		LoginDto dto = null;
 		String message = "";
 		String viewPage = "login";		
-
 		String loginMethod = request.getParameter("loginMethod");
 		String user_id = request.getParameter("user_id");
 		String user_pw = request.getParameter("user_pw");
