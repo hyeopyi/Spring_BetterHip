@@ -8,95 +8,44 @@ import com.team1.betterhip.dto.LoginDto;
 
 public class LoginCommand implements BetterHipCommand {
 
-	// 로그인시 아이디, 비밀번호 확인 메서드
-	// 아이디, 비밀번호 확인하여 리턴값 전달
-	// 탈퇴회원은 아이디만 확인하고 리턴
-	//  2 : 인증성공
-	//  1 : 아이디 틀림
-	// -1 : 비밀번호 틀림
-	// -2 : 탈퇴회원
-	//  0 : DB 연결안됨
-	// -3 : 카카오를 사용하여 가입하지 않았거나 이메일 동의를 하지않은 회원
-	
 	
 	@Override
 	public void excute(HttpServletRequest request, SqlSession sqlSession, Model model) {
 
 		LoginDao dao = sqlSession.getMapper(LoginDao.class);		
-		
+		LoginDto dto = null;
 		String message = "";
-		String viewPage = "";
-		
+		String viewPage = "login";		
 
 		String loginMethod = request.getParameter("loginMethod");
 		String user_id = request.getParameter("user_id");
 		String user_pw = request.getParameter("user_pw");
-		
-
-		
-		int loginResult = -10;
+		int passwordCount = 0; // user_id에 해당하는 password가 있는지 확인 null 우회용도
 		
 		if(loginMethod.equals("kakao")) {
 			// 카카오 회원
 			if(user_id.equals("undefined")) {				
-				loginResult = -3;
+				message = "이메일 사용 동의를 하지않았습니다" ;
 				
 			}else {
-				loginResult = dao.kakaoLoingDao(user_id) > 0 ? 2 : -3;				
+				message = dao.kakaoLoingDao(user_id) > 0 ? "인증성공" : "가입하지 않았습니다";	
 			}
 			
 		}else {
 			// 일반회원 
-			LoginDto dto = dao.logincheckDao(user_id);
-			
-			if(dto.getUser_pw() != null) {		
+			passwordCount = dao.passwordCountDao(user_id);		
+		
+			if(passwordCount > 0) {						
+				dto = dao.loginCheckDao(user_id);
+				message = dto.getUser_pw().equals(user_pw) == true ? (dto.getUser_leavedat() == 0 ? "인증성공" : "탈퇴회원 입니다") : "비밀번호가 틀립니다";
 				
-				loginResult = dto.getUser_pw().equals(user_pw) == true ? (dto.getUser_leavedate() == 0 ? 2 : -2) : -1;
-				
-			}else {
-				loginResult = 1;
-			}
+			}else {			
+				message = "아이디가 틀립니다";			}
 		}
 		
-		
-		System.out.println("loginResult : " + loginResult);
-		
-		switch(loginResult) {
-		case 2 :
-			message = "success";
+		if(message.equals("인증성공")) {
 			viewPage = "redirect:main";
-			break;
-			
-		case 1 :
-			message = "아이디가 틀렸습니다";
-			viewPage = "login";
-			break;
-		
-		case 0 : 
-			message = "데이터베이스 연결에 실패하였습니다";
-			viewPage = "login";
-			break;
-			
-		case -1 :
-			message = "비밀번호가 틀렸습니다";
-			viewPage = "login";
-			break;
-			
-		case -2 :
-			message = "탈퇴회원 입니다 재가입 해주세요";
-			viewPage = "login";
-			break;
-			
-		case -3 :
-			message = "가입하지 않았거나 이메일 동의를 하지 않으셨습니다";
-			viewPage = "login";
-			break;
 		}
-
-
-		
-//		System.out.println("messgae : " + message);
-//		System.out.println("viewpage : " + viewPage);
 		
 		model.addAttribute("message", message);		
 		request.setAttribute("viewPage", viewPage);
