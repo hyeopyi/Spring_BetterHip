@@ -17,14 +17,14 @@
 <script type="text/javascript">	
 	function cartOrder() {
 
-		document.list.action ="../BetterHip/cartOrder.do"
+		document.list.action ="cartOrder"
 		document.list.submit()
 		
 	}
 	
 	function cartDelete() {
 
-		document.list.action="../BetterHip/cartDelete.do"
+		document.list.action="cartDelete"
 		document.list.submit()
 		
 	}
@@ -97,14 +97,14 @@
 							<tr>
 							   <td width="30"><input type="checkbox" name="chk" value="${item.purchase_id}">
 							   <td width="200" align="center"><a href="cakeChoice.do?cake_id=${item.purchase_cake_id }">
-							   <img src="data:cake_img/png;base64, ${item.purchase_cake_img }" width="150" height="150"></a></td>
+							   <img src="data:cake_img/png;base64, ${item.cake_img_base64 }" width="150" height="150"></a></td>
 							   <td width="600" align="left"><h3><c:out value = "${item.purchase_cake_name }"/></h3><br>
-							    	옵션 : ${item.purchase_custom_size}&nbsp;${item.purchase_custom_taste}&nbsp;${item.purchase_custom_cream_type}
-									&nbsp;${item.purchase_custom_cream_color}&nbsp;&nbsp;픽업일 : ${item.purchase_pickup_date}<br>
+							    	옵션 : ${item.customize_size}&nbsp;${item.customize_taste}&nbsp;${item.customize_cream_type}
+									&nbsp;${item.customize_cream_color}&nbsp;&nbsp;픽업일 : ${item.purchase_pickup_date}<br>
 									문구 : ${item.purchase_text}<br><br>
 						
 									
-								<c:set var="null_check" value="${item.purchase_custom_img}"/>	
+								<c:set var="null_check" value="${item.custom_img_base64}"/>	
 								<c:choose>
 									<c:when test="${null_check eq 'xxx' }">
 									  <td align="center" width="350"></td>

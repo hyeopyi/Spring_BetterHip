@@ -19,7 +19,8 @@
     			   p.purchase_text as purchase_text, 
     			   c.cake_name as purchase_cake_name, 
     			   p.purchase_pickup_date as purchase_pickup_date, 
-    			   c.cake_img as cake_img 
+    			   c.cake_img as cake_img, 
+    			   p.purchase_img as purchase_img
     			   
     		from   purchase p, 
     		       cake c, 
@@ -31,18 +32,35 @@
     		       and p.purchase_user_id = (#{param1})
     	</select>    
     	
-    	<resultMap type="java.util.HashMap" id="imgGet">
-    		<result property="cake_img" column="cake_img" jdbcType="BLOB" javaType="byte[]"/>
-    	</resultMap>
     	
-    	<select id="CartListImgDao" resultMap="imgGet">
-    		select c.cake_img
-    		from purchase p, cake c
-    		where p.purchase_status = 1 and p.purchase_cake_id = c.cake_id and p.purchase_user_id = (#{param1})
-    	
-    	
+    	<select id="CartOrderDao">
+    		update purchase set purchase_status = 2 where purchase_id = #{param1}    	
     	</select>
     	
+    	
+    	<select id="CartDeleteDao">
+    		delete from purchase where purchase_id = #{param1}    	
+    	</select>
+    	
+    	
+    	<resultMap type="java.util.HashMap" id="imgMap" >
+    		<result property="cake_img" column="cake_img" javaType="[B" jdbcType="BLOB"/>   	
+    	</resultMap>
+    
+    	<select id="cakeImageGet" resultMap="imgMap">
+    		select cake_img from cake where cake_id = #{param1}    	
+    	</select>
+    	
+    	<select id="customImageGet" resultMap="imgMap">
+    		select purchase_img from purchase where purchase_id = #{param1}    	
+    	</select>
+    	
+
+		<select id="customImageCheck" resultType="int">
+			select count(purchase_img) from purchase where purchase_id = #{param1}		
+		</select>
+
+
 
     
     </mapper>

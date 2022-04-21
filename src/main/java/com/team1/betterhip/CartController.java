@@ -1,13 +1,13 @@
 package com.team1.betterhip;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.team1.betterhip.command.BetterHipCommand;
 
 
@@ -21,9 +21,8 @@ public class CartController {
 	private BetterHipCommand cartList = null;
 	private BetterHipCommand cartDelete = null;
 	private BetterHipCommand cartOrder = null;
-	private BetterHipCommand test = null;
 	
-	
+
 	@Autowired
 	public void cartList(BetterHipCommand cartList) {
 		this.cartList = cartList;
@@ -38,41 +37,21 @@ public class CartController {
 	public void cartOrder(BetterHipCommand cartOrder) {
 		this.cartOrder = cartOrder;
 	}
-	
-	@Autowired
-	public void test(BetterHipCommand test) {
-		this.test = test;
-	}
-	
-	
 
-	
-	@RequestMapping("/list")
-	public String test(HttpServletRequest request, Model model) {		
-		return "listTest";
-
-	}
-	
-	
-	@RequestMapping("/test")
-	public String test2(HttpServletRequest request, Model model) {
-		test.excute(request, sqlSession, model);
-		return "test";
-	}
-	
 
 	@RequestMapping("/cartList")
 	public String cartlist(HttpServletRequest request, Model model) {			
-	
+		HttpSession session = request.getSession();
+		session.setAttribute("USER_ID", "haha");
 		cartList.excute(request, sqlSession, model);
-		return "list";
+		return "cartList";
 	}
 	
 	@RequestMapping("/cartDelete") 
 	public String cartDelete(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
 		cartDelete.excute(request, sqlSession, model);
-		return "test";
+		return request.getAttribute("viewPage").toString();		
 	}
 	
 	

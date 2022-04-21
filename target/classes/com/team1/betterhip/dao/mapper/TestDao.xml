@@ -5,14 +5,24 @@
     <mapper namespace="com.team1.betterhip.dao.TestDao">
     
 
-    	<resultMap type="java.util.HashMap" id="imgMap">
+    	<resultMap type="java.util.HashMap" id="imgMap" >
     		<result property="cake_img" column="cake_img" javaType="[B" jdbcType="BLOB"/>   	
     	</resultMap>
     
     	<select id="blobImg" resultMap="imgMap">
-    		select cake_img from cake where cake_id = #{param1}
-    	
+    		select cake_img from cake where cake_id = #{param1}    	
     	</select>
+    	
+    	<select id="selectImg" resultType="map">
+    	
+    		select cake_img from cake where cake_id = #{param1}
+    	</select>
+    	
+    	<select id="getByteImage" resultMap="imgMap">    		
+    		select cake_img from cake where cake_id = #{param1}
+    	</select>
+
+
 
 
     

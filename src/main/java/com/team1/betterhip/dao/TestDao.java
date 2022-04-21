@@ -1,11 +1,16 @@
 package com.team1.betterhip.dao;
 
 
-import java.sql.Blob;
+import java.util.HashMap;
+import java.util.Map;
 
 public interface TestDao {
 	
-	public Blob blobImg(String id);
+	public HashMap<byte[], Object> blobImg(String id);
+	
+    public Map<String, Object> getByteImage();
+    
+	
 
 
 }

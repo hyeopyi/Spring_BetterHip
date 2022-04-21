@@ -1,6 +1,7 @@
 package com.team1.betterhip.command;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 import com.team1.betterhip.dao.LoginDao;
@@ -11,7 +12,8 @@ public class LoginCommand implements BetterHipCommand {
 	
 	@Override
 	public void excute(HttpServletRequest request, SqlSession sqlSession, Model model) {
-
+		
+		HttpSession session = request.getSession();		
 		LoginDao dao = sqlSession.getMapper(LoginDao.class);		
 		LoginDto dto = null;
 		String message = "";
@@ -19,7 +21,7 @@ public class LoginCommand implements BetterHipCommand {
 		String loginMethod = request.getParameter("loginMethod");
 		String user_id = request.getParameter("user_id");
 		String user_pw = request.getParameter("user_pw");
-		int passwordCount = 0; // user_id에 해당하는 password가 있는지 확인 null 우회용도
+		int passwordCount = 0; // user_id에 해당하는 password가 있는지 확인용도  
 		
 		if(loginMethod.equals("kakao")) {
 			// 카카오 회원
@@ -44,6 +46,7 @@ public class LoginCommand implements BetterHipCommand {
 		
 		if(message.equals("인증성공")) {
 			viewPage = "redirect:main";
+			session.setAttribute("USER_ID", user_id);
 		}
 		
 		model.addAttribute("message", message);		
