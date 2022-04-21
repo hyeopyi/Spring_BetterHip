@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class main {
+public class mainController {
 	
 	@Autowired
 	private SqlSession sqlSession;

@@ -21,6 +21,7 @@ public class CartController {
 	private BetterHipCommand cartList = null;
 	private BetterHipCommand cartDelete = null;
 	private BetterHipCommand cartOrder = null;
+	private BetterHipCommand test = null;
 	
 	
 	@Autowired
@@ -37,6 +38,13 @@ public class CartController {
 	public void cartOrder(BetterHipCommand cartOrder) {
 		this.cartOrder = cartOrder;
 	}
+	
+	@Autowired
+	public void test(BetterHipCommand test) {
+		this.test = test;
+	}
+	
+	
 
 	
 	@RequestMapping("/list")
@@ -45,10 +53,17 @@ public class CartController {
 
 	}
 	
+	
+	@RequestMapping("/test")
+	public String test2(HttpServletRequest request, Model model) {
+		test.excute(request, sqlSession, model);
+		return "test";
+	}
+	
 
 	@RequestMapping("/cartList")
 	public String cartlist(HttpServletRequest request, Model model) {			
-		model.addAttribute("request", request);	
+	
 		cartList.excute(request, sqlSession, model);
 		return "list";
 	}

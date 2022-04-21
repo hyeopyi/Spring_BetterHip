@@ -10,13 +10,13 @@
     		select count(#{param1}) from user where user_id = #{param1}      
     	</select>
     	
-    	<select id="logincheckDao" resultType="com.team1.betterhip.dto.LoginDto">
-    		select 
-    				user_pw, 
-    				count(user_leavedate) 
-    		from user
-    		where user_id = #{param1}
-    		
+    	<select id="loginCheckDao" resultType="com.team1.betterhip.dto.LoginDto">
+    		select user_pw, count(user_pw), count(user_leavedate) from user where user_id = #{param1}
+    	
+    	</select>
+    	
+    	<select id="passwordCountDao" resultType="int">
+    		select count(user_pw) from user where user_id = #{param1}    	
     	</select>
 
     
