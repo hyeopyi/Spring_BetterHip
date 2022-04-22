@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team1.betterhip.dao.PurchaseDao">
+	
+	<!--주문 상태 별 주문 수 가져오기-->
+	<select id="purchase_status_count_3" resultType="int">
+		SELECT COUNT(*) FROM purchase WHERE PURCHASE_USER_ID = #{param1} AND PURCHASE_STATUS = '3';
+	</select>
+	<select id="purchase_status_count_101" resultType="int">
+		SELECT COUNT(*) FROM purchase WHERE PURCHASE_USER_ID = #{param1} AND PURCHASE_STATUS = '101';
+	</select>
+	<select id="purchase_status_count_103" resultType="int">
+		SELECT COUNT(*) FROM purchase WHERE PURCHASE_USER_ID = #{param1} AND PURCHASE_STATUS = '103';
+	</select>
+	
+	<!--주문 상태 별 주문 수 가져오기 (날짜 쿼리)-->
+	<select id="purchase_status_count_3_query" resultType="int">
+		SELECT COUNT(*) FROM purchase WHERE PURCHASE_USER_ID = #{param1} AND PURCHASE_DATE BETWEEN #{param2} AND #{param3} AND PURCHASE_STATUS = '3';
+	</select>
+	<select id="purchase_status_count_101_query" resultType="int">
+		SELECT COUNT(*) FROM purchase WHERE PURCHASE_USER_ID = #{param1} AND PURCHASE_DATE BETWEEN #{param2} AND #{param3} AND PURCHASE_STATUS = '101';
+	</select>
+	<select id="purchase_status_count_103_query" resultType="int">
+		SELECT COUNT(*) FROM purchase WHERE PURCHASE_USER_ID = #{param1} AND PURCHASE_DATE BETWEEN #{param2} AND #{param3} AND PURCHASE_STATUS = '103';
+	</select>
+	
+	<!--cake_img blob 가져오기 위한 resultMap -->
+	<resultMap type="com.team1.betterhip.dto.PurchaseListDto" id="cakeImgMap">
+		<result property="cake_img" column = "cake_img" jdbcType="BLOB" javaType="byte[]"/>
+	</resultMap>
+	
+	<!--주문조회 리스트 가져오기 -->
+	<select id="purchaseList" resultMap="cakeImgMap" resultType="com.team1.betterhip.dto.PurchaseListDto">
+		SELECT P.PURCHASE_ID, P.PURCHASE_DATE, P.PURCHASE_QUANTITY, P.PURCHASE_PRICE, P.PURCHASE_STATUS, P.PURCHASE_TEXT, P.PURCHASE_PICKUP_DATE,
+			   C.CAKE_NAME, C.CAKE_IMG, CUST.CUSTOMIZE_TASTE, CUST.CUSTOMIZE_SIZE, CUST.CUSTOMIZE_CREAM_TYPE, CUST.CUSTOMIZE_CREAM_COLOR
+			   FROM purchase P, cake C, customize CUST WHERE P.PURCHASE_USER_ID = #{param1} AND P.PURCHASE_STATUS IN('3', '101', '102', '103') 
+			   AND P.PURCHASE_CAKE_ID = C.CAKE_ID AND P.PURCHASE_CUSTOMIZE_ID = CUST.CUSTOMIZE_ID ORDER BY P.PURCHASE_DATE;
+	</select>
+	
+	<!--주문조회 리스트 가져오기 (날짜 쿼리) -->
+	<select id="purchaseList_query" resultMap="cakeImgMap" resultType="com.team1.betterhip.dto.PurchaseListDto">
+		SELECT P.PURCHASE_ID, P.PURCHASE_DATE, P.PURCHASE_QUANTITY, P.PURCHASE_PRICE, P.PURCHASE_STATUS, P.PURCHASE_TEXT, P.PURCHASE_PICKUP_DATE,
+			   C.CAKE_NAME, C.CAKE_IMG, CUST.CUSTOMIZE_TASTE, CUST.CUSTOMIZE_SIZE, CUST.CUSTOMIZE_CREAM_TYPE, CUST.CUSTOMIZE_CREAM_COLOR
+			   FROM purchase P, cake C, customize CUST WHERE P.PURCHASE_USER_ID = #{param1} AND PURCHASE_DATE BETWEEN #{param2} AND #{param3} AND P.PURCHASE_STATUS IN('3', '101', '102', '103') 
+			   AND P.PURCHASE_CAKE_ID = C.CAKE_ID AND P.PURCHASE_CUSTOMIZE_ID = CUST.CUSTOMIZE_ID ORDER BY P.PURCHASE_DATE;
+	</select>
+	
+	<!--취소 주문 리스트 가져오기 -->
+	<select id="cancelList" resultMap="cakeImgMap" resultType="com.team1.betterhip.dto.PurchaseListDto">
+		SELECT P.PURCHASE_ID, P.PURCHASE_DATE, P.PURCHASE_QUANTITY, P.PURCHASE_PRICE, P.PURCHASE_STATUS, P.PURCHASE_TEXT, P.PURCHASE_PICKUP_DATE,
+			   C.CAKE_NAME, C.CAKE_IMG, CUST.CUSTOMIZE_TASTE, CUST.CUSTOMIZE_SIZE, CUST.CUSTOMIZE_CREAM_TYPE, CUST.CUSTOMIZE_CREAM_COLOR
+			   FROM purchase P, cake C, customize CUST WHERE P.PURCHASE_USER_ID = #{param1} AND P.PURCHASE_STATUS = '1001' 
+			   AND P.PURCHASE_CAKE_ID = C.CAKE_ID AND P.PURCHASE_CUSTOMIZE_ID = CUST.CUSTOMIZE_ID ORDER BY P.PURCHASE_DATE;
+	</select>
+
+	<!--환불 주문 리스트 가져오기 -->
+	<select id="refundList" resultMap="cakeImgMap" resultType="com.team1.betterhip.dto.PurchaseListDto">
+		SELECT P.PURCHASE_ID, P.PURCHASE_DATE, P.PURCHASE_QUANTITY, P.PURCHASE_PRICE, P.PURCHASE_STATUS, P.PURCHASE_TEXT, P.PURCHASE_PICKUP_DATE,
+			   C.CAKE_NAME, C.CAKE_IMG, CUST.CUSTOMIZE_TASTE, CUST.CUSTOMIZE_SIZE, CUST.CUSTOMIZE_CREAM_TYPE, CUST.CUSTOMIZE_CREAM_COLOR
+			   FROM purchase P, cake C, customize CUST WHERE P.PURCHASE_USER_ID = #{param1} AND P.PURCHASE_STATUS = '1002' 
+			   AND P.PURCHASE_CAKE_ID = C.CAKE_ID AND P.PURCHASE_CUSTOMIZE_ID = CUST.CUSTOMIZE_ID ORDER BY P.PURCHASE_DATE;
+	</select>
+	
+	<!--취소 주문 리스트 가져오기 (날짜 쿼리) -->
+	<select id="cancelList_query" resultMap="cakeImgMap" resultType="com.team1.betterhip.dto.PurchaseListDto">
+		SELECT P.PURCHASE_ID, P.PURCHASE_DATE, P.PURCHASE_QUANTITY, P.PURCHASE_PRICE, P.PURCHASE_STATUS, P.PURCHASE_TEXT, P.PURCHASE_PICKUP_DATE,
+			   C.CAKE_NAME, C.CAKE_IMG, CUST.CUSTOMIZE_TASTE, CUST.CUSTOMIZE_SIZE, CUST.CUSTOMIZE_CREAM_TYPE, CUST.CUSTOMIZE_CREAM_COLOR
+			   FROM purchase P, cake C, customize CUST WHERE P.PURCHASE_USER_ID = #{param1} AND PURCHASE_DATE BETWEEN #{param2} AND #{param3} AND P.PURCHASE_STATUS = '1001' 
+			   AND P.PURCHASE_CAKE_ID = C.CAKE_ID AND P.PURCHASE_CUSTOMIZE_ID = CUST.CUSTOMIZE_ID ORDER BY P.PURCHASE_DATE;
+	</select>
+	
+	<!--환불 주문 리스트 가져오기 (날짜 쿼리) -->
+	<select id="refundList_query" resultMap="cakeImgMap" resultType="com.team1.betterhip.dto.PurchaseListDto">
+		SELECT P.PURCHASE_ID, P.PURCHASE_DATE, P.PURCHASE_QUANTITY, P.PURCHASE_PRICE, P.PURCHASE_STATUS, P.PURCHASE_TEXT, P.PURCHASE_PICKUP_DATE,
+			   C.CAKE_NAME, C.CAKE_IMG, CUST.CUSTOMIZE_TASTE, CUST.CUSTOMIZE_SIZE, CUST.CUSTOMIZE_CREAM_TYPE, CUST.CUSTOMIZE_CREAM_COLOR
+			   FROM purchase P, cake C, customize CUST WHERE P.PURCHASE_USER_ID = #{param1} AND PURCHASE_DATE BETWEEN #{param2} AND #{param3} AND P.PURCHASE_STATUS = '1002' 
+			   AND P.PURCHASE_CAKE_ID = C.CAKE_ID AND P.PURCHASE_CUSTOMIZE_ID = CUST.CUSTOMIZE_ID ORDER BY P.PURCHASE_DATE;
+	</select>
+	
+	<!--purchase_img blob 가져오기 위한 resultMap -->
+	<resultMap type="com.team1.betterhip.dto.PurchaseListImgPopupDto" id="purchaseImgMap">
+		<result property="purchase_img" column = "purchase_img" jdbcType="BLOB" javaType="byte[]"/>
+	</resultMap>
+	<!--주문 조회 첨부파일 팝업 이미지 가져오기-->
+	<select id="purchaseListImgPopup" resultMap="purchaseImgMap" resultType="com.team1.betterhip.dto.PurchaseListImgPopupDto">
+		SELECT PURCHASE_USER_ID, PURCHASE_IMG, PURCHASE_IMG_FILENAME FROM purchase WHERE PURCHASE_ID = #{param1} AND PURCHASE_STATUS IN('3', '101', '102', '103') ORDER BY PURCHASE_DATE;
+	</select>
+	
+	<!--주문 취소 : 주문 상태를 '1001'로 변경-->
+	<update id="purchaseCancel">
+		UPDATE purchase SET PURCHASE_STATUS = '1001' WHERE PURCHASE_ID = #{PARAM1}
+	</update>
+	
+</mapper>

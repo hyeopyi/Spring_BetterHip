@@ -106,7 +106,7 @@
 									
 								<c:set var="null_check" value="${item.custom_img_base64}"/>	
 								<c:choose>
-									<c:when test="${null_check eq 'xxx' }">
+									<c:when test="${empty null_check}">
 									  <td align="center" width="350"></td>
 									</c:when>
 									<c:otherwise>

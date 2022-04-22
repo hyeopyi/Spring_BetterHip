@@ -19,22 +19,18 @@ public class CartDeleteCommand implements BetterHipCommand {
 		
 		try {
 			
-			for(String purchase_id : orderList) {			
-				
+			for(String purchase_id : orderList) {					
 				dao.CartDeleteDao(purchase_id);
 			}
 			
 			viewPage = "redirect:cartList";
 			
-		}catch (Exception e) {
-			
+		}catch (Exception e) {			
 			System.out.println(e.toString());
 
 		}
 		
-		request.setAttribute("viewPage", viewPage);
-		System.out.println("viewPage : " + viewPage);
-		
+		request.setAttribute("viewPage", viewPage);		
 		
 	}  // excute_end
 

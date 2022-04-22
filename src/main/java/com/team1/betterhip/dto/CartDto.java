@@ -18,8 +18,7 @@ public class CartDto {
 	String purchase_text;
 	String purchase_cake_name;
 	String purchase_pickup_date;
-	Blob cake_img; 
-	Blob purchase_img;
+	byte[] cake_img; 
 	String cake_img_base64;
 	String custom_img_base64;
 
@@ -34,8 +33,8 @@ public class CartDto {
 
 	public CartDto(int purchase_id, int purchase_quantity, int purchase_price, int purchase_cake_id,
 			String customize_size, String customize_taste, String customize_cream_type, String customize_cream_color,
-			String purchase_text, String purchase_cake_name, String purchase_pickup_date, Blob cake_img,
-			Blob purchase_img, String cake_img_base64, String custom_img_base64) {
+			String purchase_text, String purchase_cake_name, String purchase_pickup_date, byte[] cake_img,
+			String cake_img_base64, String custom_img_base64) {
 		super();
 		this.purchase_id = purchase_id;
 		this.purchase_quantity = purchase_quantity;
@@ -49,13 +48,12 @@ public class CartDto {
 		this.purchase_cake_name = purchase_cake_name;
 		this.purchase_pickup_date = purchase_pickup_date;
 		this.cake_img = cake_img;
-		this.purchase_img = purchase_img;
 		this.cake_img_base64 = cake_img_base64;
 		this.custom_img_base64 = custom_img_base64;
 	}
 
 
-	// Method
+
 	public int getPurchase_id() {
 		return purchase_id;
 	}
@@ -188,26 +186,14 @@ public class CartDto {
 
 
 
-	public Blob getCake_img() {
+	public byte[] getCake_img() {
 		return cake_img;
 	}
 
 
 
-	public void setCake_img(Blob cake_img) {
+	public void setCake_img(byte[] cake_img) {
 		this.cake_img = cake_img;
-	}
-
-
-
-	public Blob getPurchase_img() {
-		return purchase_img;
-	}
-
-
-
-	public void setPurchase_img(Blob purchase_img) {
-		this.purchase_img = purchase_img;
 	}
 
 
@@ -233,6 +219,8 @@ public class CartDto {
 	public void setCustom_img_base64(String custom_img_base64) {
 		this.custom_img_base64 = custom_img_base64;
 	}
+
+
 
 	
 

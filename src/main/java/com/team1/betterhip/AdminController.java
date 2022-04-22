@@ -11,21 +11,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.team1.betterhip.command.BetterHipCommand;
 
 @Controller
-public class TestController {
-
+public class AdminController {
+	
+	
 	@Autowired
 	private SqlSession sqlSession;
 	
-	private BetterHipCommand test = null;
-
+	private BetterHipCommand revenue = null;
+	
+	
 	@Autowired
-	public void setTest(BetterHipCommand test) {
-		this.test = test;
+	public void commandSet(BetterHipCommand revenue) {
+		this.revenue = revenue;
+	}
+	
+	@RequestMapping("/admin")
+	public String admin(HttpServletRequest request, Model model) {
+		return "admin";
+	}
+	
+	
+	@RequestMapping("/revenue")
+	public String revenue(HttpServletRequest request, Model model) {
+		revenue.excute(request, sqlSession, model);
+		return "revenue";
 	}
 
-	@RequestMapping("/test")
-	public String doTest(HttpServletRequest request, Model model) {
-		test.excute(request, sqlSession, model);
-		return "test";
-	}
 }

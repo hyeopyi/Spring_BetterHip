@@ -151,6 +151,12 @@ function kakaoLogout() {
 </script>
 
 <body>
+<%
+	if(session.getAttribute("USER_ID") != null) {
+		response.sendRedirect("main");
+	}
+
+%>
 <!-- header -->
 <div id="wrap">
 	<header>

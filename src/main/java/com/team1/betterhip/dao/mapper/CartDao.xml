@@ -2,9 +2,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
-    <mapper namespace="com.team1.betterhip.dao.CartDao">
-    
-
+    <mapper namespace="com.team1.betterhip.dao.CartDao">   
 	    
     	<select id="CartListDao" resultType="com.team1.betterhip.dto.CartDto">
     		select     
@@ -19,8 +17,8 @@
     			   p.purchase_text as purchase_text, 
     			   c.cake_name as purchase_cake_name, 
     			   p.purchase_pickup_date as purchase_pickup_date, 
-    			   c.cake_img as cake_img, 
-    			   p.purchase_img as purchase_img
+    			   c.cake_img as cake_img
+    		
     			   
     		from   purchase p, 
     		       cake c, 
@@ -32,35 +30,21 @@
     		       and p.purchase_user_id = (#{param1})
     	</select>    
     	
+    	<update id="CartOrderDao">
+    		update purchase set purchase_status = 2 where purchase_id = #{param1}    
+    	</update>
+  
     	
-    	<select id="CartOrderDao">
-    		update purchase set purchase_status = 2 where purchase_id = #{param1}    	
-    	</select>
-    	
-    	
-    	<select id="CartDeleteDao">
+    	<delete id="CartDeleteDao">
     		delete from purchase where purchase_id = #{param1}    	
-    	</select>
+    	</delete>
     	
-    	
-    	<resultMap type="java.util.HashMap" id="imgMap" >
-    		<result property="cake_img" column="cake_img" javaType="[B" jdbcType="BLOB"/>   	
-    	</resultMap>
-    
-    	<select id="cakeImageGet" resultMap="imgMap">
+    	<select id="CustomImageDao" resultType="com.team1.betterhip.dto.CartCustomImageDto">
     		select cake_img from cake where cake_id = #{param1}    	
     	</select>
-    	
-    	<select id="customImageGet" resultMap="imgMap">
-    		select purchase_img from purchase where purchase_id = #{param1}    	
-    	</select>
-    	
 
 		<select id="customImageCheck" resultType="int">
 			select count(purchase_img) from purchase where purchase_id = #{param1}		
 		</select>
 
-
-
-    
     </mapper>

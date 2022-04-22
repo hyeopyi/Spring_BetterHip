@@ -4,6 +4,11 @@
 <!DOCTYPE html>
 <html lang="ko">
 
+<script type="text/javascript">
+
+
+</script>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,11 +34,30 @@
             <div class="top-header">
                 <div class="container clearfix">
                 <div class="member-area">
-                    <a href="loginForm.do">로그인</a>
+                <%
+                	if(session.getAttribute("USER_ID") == null) {
+                		%>
+                		<a href="loginForm">로그인</a>
+                		<span class="bar">|</span>
+                		<%
+                	}else {
+                		%>
+                		<a href="logout">로그아웃</a>
+                		<span class="bar">|</span>
+                		<%
+                		if(session.getAttribute("USER_ID").toString().equals("admin")) {
+                			%>
+                			<a href="admin">관리자</a>
+                			<span class="bar">|</span>
+                			<%
+                		}
+                	}
+                
+                %>
+                    
+                    <a href="signupForm">회원가입</a>
                     <span class="bar">|</span>
-                    <a href="signupForm.do">회원가입</a>
-                    <span class="bar">|</span>
-                    <a href="cartList.do">장바구니</a>
+                    <a href="cartList">장바구니</a>
                     <span class="bar">|</span>
                     <a href="purchaseList.do">My Page</a>
                 </div>

@@ -27,13 +27,17 @@
 	
 	<context:component-scan base-package="com.team1.betterhip" />
 	
-	
    <beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
 		<beans:property name="url" value="jdbc:mariadb://space777.iptime.org:3306/betterhip"/>
 		<beans:property name="username" value="root"/>
 		<beans:property name="password" value="ejwhgdmsxla1!@#$"/>
 	</beans:bean>
+	
+		<beans:bean name="template" class="org.springframework.jdbc.core.JdbcTemplate">
+		 <beans:property name="dataSource" ref="dataSource"/>
+	</beans:bean>
+	
 	
 	<beans:bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />
@@ -44,9 +48,22 @@
 		<beans:constructor-arg index="0" ref="sqlSessionFactory"/>
 	</beans:bean>
 	
+
+	
 	<beans:bean name="cartList" class="com.team1.betterhip.command.CartListCommand"></beans:bean>	
 	<beans:bean name="cartDelete" class="com.team1.betterhip.command.CartDeleteCommand"></beans:bean>	
 	<beans:bean name="cartOrder" class="com.team1.betterhip.command.CartOrderCommand"></beans:bean>	
 	<beans:bean name="login" class="com.team1.betterhip.command.LoginCommand"></beans:bean>
+	<beans:bean name="userInfoView" class="com.team1.betterhip.command.UserInfoViewCommand"></beans:bean>
+	<beans:bean name="userInfoModify" class="com.team1.betterhip.command.UserInfoModifyCommand"></beans:bean>
+	<beans:bean name="userInfoDelete" class="com.team1.betterhip.command.UserInfoDeleteCommand"></beans:bean>
+	<beans:bean name="purchaseList" class="com.team1.betterhip.command.PurchaseListCommand"></beans:bean>
+	<beans:bean name="purchaseListImgPopup" class="com.team1.betterhip.command.PurchaseListImgPopupCommand"></beans:bean>
+	<beans:bean name="purchaseQueryList" class="com.team1.betterhip.command.PurchaseQueryListCommand"></beans:bean>
+	<beans:bean name="cancelrefundList" class="com.team1.betterhip.command.CancelRefundListCommand"></beans:bean>
+	<beans:bean name="cancelrefundQueryList" class="com.team1.betterhip.command.CancelRefundQueryListCommand"></beans:bean>
+	<beans:bean name="purchaseCancel" class="com.team1.betterhip.command.PurchaseCancelCommand"></beans:bean>
+	<beans:bean name="revenue" class="com.team1.betterhip.command.RevenueCommand"></beans:bean>
 	<beans:bean name="test" class="com.team1.betterhip.command.TestCommand"></beans:bean>
+	
 </beans:beans>

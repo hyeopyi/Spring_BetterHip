@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.team1.betterhip.command.BetterHipCommand;
 
@@ -24,32 +25,21 @@ public class CartController {
 	
 
 	@Autowired
-	public void cartList(BetterHipCommand cartList) {
+	public void cartList(BetterHipCommand cartList, BetterHipCommand cartDelete, BetterHipCommand cartOrder) {
 		this.cartList = cartList;
-	}
-	
-	@Autowired
-	public void cartDelete(BetterHipCommand cartDelete) {
 		this.cartDelete = cartDelete;
-	}
- 
-	@Autowired
-	public void cartOrder(BetterHipCommand cartOrder) {
 		this.cartOrder = cartOrder;
 	}
 
 
 	@RequestMapping("/cartList")
-	public String cartlist(HttpServletRequest request, Model model) {			
-		HttpSession session = request.getSession();
-		session.setAttribute("USER_ID", "haha");
+	public String cartlist(HttpServletRequest request, Model model) {	
 		cartList.excute(request, sqlSession, model);
 		return "cartList";
 	}
 	
 	@RequestMapping("/cartDelete") 
 	public String cartDelete(HttpServletRequest request, Model model) {
-		model.addAttribute("request", request);
 		cartDelete.excute(request, sqlSession, model);
 		return request.getAttribute("viewPage").toString();		
 	}
@@ -57,7 +47,6 @@ public class CartController {
 	
 	@RequestMapping("/cartOrder")
 	public String cartOrder(HttpServletRequest request, Model model) {
-		model.addAttribute("request", request);
 		cartOrder.excute(request, sqlSession, model);
 		return "test";
 	}
